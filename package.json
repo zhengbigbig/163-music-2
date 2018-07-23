@@ -1,0 +1,27 @@
+{
+  "name": "163-music-1",
+  "version": "1.0.0",
+  "description": "包含管理端（admin页面）",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "jquery": "^3.3.1",
+    "leancloud-storage": "^3.8.1",
+    "qiniu": "^7.2.1",
+    "qiniu-js": "^1.0.24"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zhengbigbig/163-music-1.git"
+  },
+  "bugs": {
+    "url": "https://github.com/zhengbigbig/163-music-1/issues"
+  },
+  "homepage": "https://github.com/zhengbigbig/163-music-1#readme"
+}
