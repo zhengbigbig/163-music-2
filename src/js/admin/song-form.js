@@ -71,13 +71,14 @@
       song.set('url',data.url);
       return song.save().then((newSong)=>{
         let {id,attributes} = newSong
-        Object.assign(this.data,{id,...attributes}
-        )
+        Object.assign(this.data,{id,...attributes})
       }, (error)=>{
         console.error(error);
       });
     },
     updata(data){
+        console.log(1121212)
+        console.log(data)
         var song = AV.Object.createWithoutData('Song',this.data.id);
         // 修改属性
         song.set('name', data.name);
@@ -87,6 +88,7 @@
         return song.save().then((response)=>{
           Object.assign(this.data,data)
             return response
+
         });
     }
   }
@@ -99,6 +101,7 @@
       this.bindEvents()
       window.eventHub.on('select',(data)=>{
         this.view.render(data)
+        this.model.data.id = data.id
       })
       window.eventHub.on('new',(data)=>{
         if(this.model.data.id){ //这个data的id是从leancloud里面取的，如果存在，说明用户正在编辑
@@ -122,14 +125,14 @@
             window.eventHub.emit('create',object)
         })
     },
-    updata (){
+    updata(){
         let needs = 'name singer url'.split(' ')
         let data = {}
         needs.map((string)=>{
             data[string] = $(this.view.el).find(`[name="${string}"]`).val()
         })
         this.model.updata(data).then(()=>{
-            window.eventHub.emit('updata',JSON.parse(JSON.stringify(this.model.data)))
+            window.eventHub.emit('updata',this.model.data)
         })
     }
     ,
@@ -137,6 +140,7 @@
       $(this.view.el).on('submit','form',(e)=>{
           e.preventDefault()
           if(this.model.data.id){
+              //数据没传过来
             this.updata()
           }else{
             this.create()
@@ -148,3 +152,5 @@
   controller.init(view, model)
 
 }
+//bug 当用户刷新，再次点编辑时又创建了一个新的Li,修改任何时，都修改的是这个li？
+//说明上一个updata出了问题

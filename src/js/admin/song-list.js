@@ -10,8 +10,12 @@
     render(data){
       let $el = $(this.el)
       $el.html(this.template)
-      let {songs} = data
-      let liList = songs.map((song)=>$('<li></li>').text(song.name).attr('data-song-id',song.id))//遍历songs并对这个数组执行函数
+      let {songs,selectedSongId} = data
+      let liList = songs.map((song)=>{
+        let $li = $('<li></li>').text(song.name).attr('data-song-id',song.id)
+          if(song.id === selectedSongId){$li.addClass('active')}
+            return $li
+      })//遍历songs并对这个数组执行函数
         //创建li，并且li的文本为song.name，绑定一个data-song-id，id为song.id
       $el.find('ul').empty()
       liList.map((domLi)=>{
@@ -20,16 +24,12 @@
     },
     deactive(){
       $(this.el).find('.active').removeClass('active')
-    },
-    acticeItem(li){
-      let $li =$(li)
-      $li.addClass('active')
-        .siblings('.active').removeClass('active')
     }
   }
   let model = {
     data:{
-      songs:[ ]
+      songs:[ ],
+      selectedSongId:undefined,
     },
     find(){
       var query = new AV.Query('Song');
@@ -59,13 +59,14 @@
     },
     bindEvents(){
       $(this.view.el).on('click','li',(e)=>{
-        this.view.acticeItem(e.currentTarget)
-          //点击时active
         let songId = e.currentTarget.getAttribute('data-song-id')
           //点击li拿到对应li的id
+        this.model.data.selectedSongId = songId
+        this.view.render(this.model.data)
+          //controller所做的事情就是更新数据，重新调用view
         let data
         let songs = this.model.data.songs
-        for(i=0;i<songs.length;i++){
+        for(let i=0;i<songs.length;i++){
           if(songs[i].id ===songId){
             data = songs[i]
             break
