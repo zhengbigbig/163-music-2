@@ -1,3 +1,4 @@
+
 {
   let view = {
     el: '.uploadArea',
@@ -49,13 +50,22 @@
                     // 文件添加进队列后,处理相关的事情
                 });
             },
-            'BeforeUpload': function(up, file) {
+            'BeforeUpload': (up, file)=> {
+	        window.eventHub.emit('beforeUpload')
+                if(this.model.data.status === 'open'){
+	              this.model.data.status = 'close'
+                    return true
+                }else{
+                    return false
+                }
                    // 每个文件上传前,处理相关的事情
             },
             'UploadProgress': function(up, file) {
                    // 每个文件上传时,处理相关的事情
             },
-            'FileUploaded': function(up, file, info) {
+            'FileUploaded': (up, file, info)=> {
+	        window.eventHub.emit('afterUpload')
+            this.model.data.status = 'open'
                    // 每个文件上传成功后,处理相关的事情
                    // 其中 info.response 是文件上传成功后，服务端返回的json，形式如
                    // {
