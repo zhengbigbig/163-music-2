@@ -49,7 +49,7 @@
     </ul>
 </header>
 <main>
-    <div class="recommendedMusic">
+    <div class="recommendedMusic active">
         <div class="recommendedSongs">
             <div class="line"></div>
             <span>推荐歌单</span>
@@ -111,7 +111,7 @@
             <p>免责声明</p>
         </div>
     </div>
-    <div class="hotSonglist" style="display: none;">
+    <div class="hotSonglist">
         <div class="hotBar">
             <div class="htBartop">
             </div>
@@ -141,27 +141,50 @@
     </div>
     <div class="searchSong" >
         <div class="searchBar">
-            <label>
-                <div class="searchlogo"></div>
-                <input type="search">
-            </label>
+                <div class="searchlogo">查</div>
+                <form action="#">
+                    <input type="search" value="" placeholder="搜索歌曲、歌手、专辑" results="5">
+                </form>
         </div>
-        <div class="hotsearch">
+        <div class="hotSearch">
             <p>热门搜索</p>
             <a href="">毛不易</a>
             <a href="">尘土</a>
-
+            <a href="">毛不易</a>
+            <a href="">毛不易</a>
+            <a href="">毛不易</a>
+            <a href="">毛不易</a>
         </div>
-        <div class="history">
-            <span>logo</span>
-            <p>薛之谦</p>
-        </div>
+        <ul class="list">
+          <li class="item">
+              <span>x</span>
+              <p>薛之谦</p>
+              <span>x</span>
+          </li>
+        </ul>
     </div>
 
 </main>
 
-
+<script src="../node_modules/leancloud-storage/dist/av-min.js"></script>
+<script src="./js/initializers/av.js"></script>
 <script src="../node_modules/jquery/dist/jquery.min.js"></script>
 <script src="//at.alicdn.com/t/font_762983_kin2oqg4ywm.js"></script>
+<script src="./js/admin/event-hub.js"></script>
+
+<script>
+    !function topBarEvents (){
+        $('header > .navBar > li').eq(0).addClass('active')
+        $('header > .navBar > li').on('touchstart',function(e){
+            let index = $(e.currentTarget).index()
+            $('header > .navBar > li').removeClass('active')
+            $('header > .navBar > li').eq(`${index}`).addClass('active')
+            $('main > div').removeClass('active')
+            $('main > div').eq(`${index}`).addClass('active')
+
+        })
+    }.call()
+
+</script>
 </body>
 </html>
