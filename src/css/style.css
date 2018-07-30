@@ -28,7 +28,6 @@ header .topBar{
 header .topBar .logo{
     vertical-align: middle;
     text-align: center;
-    margin-left:0.06rem;
     display: flex;
     align-items: center;
 }
@@ -36,6 +35,8 @@ header .topBar .logo .logo-inner{
     height:28px;
     line-height:28px;
     font-size:22px;
+    margin-left:.24rem;
+    margin-right:.12rem;
 }
 header .topBar .logo .logo-inner .icon{
     width: 28px;
@@ -57,7 +58,7 @@ header .topBar a{
     border: 1px solid rgba(255, 255, 255, 0.5);
     padding:0 10px;
     border-radius: 12px;
-    margin-right:.1rem;
+    margin-right:.24rem;
     text-align: center;
 }
 header .navBar{
@@ -173,6 +174,7 @@ main .recommendedMusic .songList li{
 main .recommendedMusic .songList li p:nth-child(1){
     font-size:17px;
     height:25px;
+    margin-top: 2px;
     line-height:25px;
     color:#333;
     width: 8.9rem;
@@ -181,12 +183,14 @@ main .recommendedMusic .songList li p:nth-child(2){
     font-size:12px;
     height:18px;
     line-height:18px;
+    margin-top: 2px;
     color:#888;
     border:.8px solid transparent;
     width: 8.9rem;
 }
 main .recommendedMusic .songList li p:nth-child(2) .icon{
-    vertical-align: -0.35em;
+    font-size:14px;
+    vertical-align: -0.18em;
 }
 main .recommendedMusic .songList li a .icon{
     display: inherit;
@@ -300,7 +304,8 @@ main .hotSonglist .hotsonglist li p:nth-child(2){
     border:.8px solid transparent;
 }
 main .hotSonglist .hotsonglist li p:nth-child(2) .icon{
-    vertical-align: -0.35em;
+    font-size:14px;
+    vertical-align: -0.18em;
 }
 main .hotSonglist .hotsonglist li a .icon{
     display: inherit;
@@ -362,7 +367,7 @@ main .searchSong .searchBar input[type=search]::-webkit-search-cancel-button{
     height: 14px;
     width: 14px;
     border-radius: 50%;
-    background:red;
+    background:center / contain no-repeat  url("http://chuantu.biz/t6/350/1532914929x-1566688688.png");
 }
 
 main .searchSong .hotSearch{
@@ -396,6 +401,9 @@ main .searchSong ul li span:nth-child(1){
     width:15px;
     height:15px;
 }
+main .searchSong ul li span:nth-child(1) .icon{
+    vertical-align: 0.8em;
+}
 main .searchSong .list .item p{
     line-height:20px;
     padding:12px 0;
@@ -403,8 +411,11 @@ main .searchSong .list .item p{
 }
 main .searchSong ul li span:nth-child(3){
     width:32px;height:32px;
-    border:1px solid black;
     text-align:center;
+    border:1px solid transparent;
+}
+main .searchSong ul li span:nth-child(3) .icon{
+    vertical-align: -webkit-baseline-middle;
 }
 
 /*active类*/

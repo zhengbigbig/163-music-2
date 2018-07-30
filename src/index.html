@@ -28,15 +28,14 @@
 <!--//            var oWidth = document.body.clientWidth || document.documentElement.clientWidth;-->
 <!--//            html.style.fontSize = oWidth/pwidth*prem + "px";-->
 <!--//        }-->
-    <link rel="stylesheet" href="./css/style.css">
 </head>
 <body>
 
-<header>
+<header id="header">
     <div class="topBar">
         <div class="logo">
             <span class="logo-inner"><svg class="icon" aria-hidden="true">
-    <use xlink:href="#icon-wangyiyunyinle"></use>
+    <use xlink:href="#icon-wangyiyunyinleclick"></use>
 </svg></span>
             <span class="title">网易云音乐</span>
         </div>
@@ -49,12 +48,12 @@
     </ul>
 </header>
 <main>
-    <div class="recommendedMusic active">
+    <div class="recommendedMusic active" id="recMusic">
         <div class="recommendedSongs">
             <div class="line"></div>
             <span>推荐歌单</span>
         </div>
-        <ul class="rec-img">
+        <ul class="rec-img" id="rec-img">
             <li><img src="http://p1.music.126.net/pFLnEUj4kmGYuNMkJfCQPg==/19025949207652805.webp?imageView&thumbnail=369x0&quality=75&tostatic=0&type=webp" alt="图片1"><p>风月无憾 | 你是我有关青春 最美的句读风月无憾 | 你是我有关青春 最美的句读风月无憾 | 你是我有关青春 最美的句读风月无憾 | 你是我有关青春 最美的句读</p></li>
             <li><img src="http://p1.music.126.net/pFLnEUj4kmGYuNMkJfCQPg==/19025949207652805.webp?imageView&thumbnail=369x0&quality=75&tostatic=0&type=webp" alt="图片1"><p>风月无憾 | 你是我有关青春 最美的句读风月无憾 | 你是我有关青春 最美的句读风月无憾 | 你是我有关青春 最美的句读风月无憾 | 你是我有关青春 最美的句读</p></li>
             <li><img src="http://p1.music.126.net/pFLnEUj4kmGYuNMkJfCQPg==/19025949207652805.webp?imageView&thumbnail=369x0&quality=75&tostatic=0&type=webp" alt="图片1"><p>风月无憾 | 你是我有关青春 最美的句读风月无憾 | 你是我有关青春 最美的句读风月无憾 | 你是我有关青春 最美的句读风月无憾 | 你是我有关青春 最美的句读</p></li>
@@ -66,7 +65,7 @@
             <div class="line"></div>
             <span>最新音樂</span>
         </div>
-        <ul class="songList">
+        <ul class="songList" id="songList">
             <li>
                 <div>
                 <p>1</p>
@@ -111,7 +110,7 @@
             <p>免责声明</p>
         </div>
     </div>
-    <div class="hotSonglist">
+    <div class="hotSonglist" id="hot-sl">
         <div class="hotBar">
             <div class="htBartop">
             </div>
@@ -139,9 +138,11 @@
             查看完整榜单>
         </a>
     </div>
-    <div class="searchSong" >
+    <div class="searchSong" id="searchSong">
         <div class="searchBar">
-                <div class="searchlogo">查</div>
+                <div class="searchlogo"><svg class="icon" aria-hidden="true">
+                    <use xlink:href="#icon-chazhao"></use>
+                </svg></div>
                 <form action="#">
                     <input type="search" value="" placeholder="搜索歌曲、歌手、专辑" results="5">
                 </form>
@@ -157,34 +158,29 @@
         </div>
         <ul class="list">
           <li class="item">
-              <span>x</span>
+              <span><svg class="icon" aria-hidden="true">
+    <use xlink:href="#icon-shijian"></use>
+</svg></span>
               <p>薛之谦</p>
-              <span>x</span>
+              <span><svg class="icon" aria-hidden="true">
+    <use xlink:href="#icon-x"></use>
+</svg></span>
           </li>
         </ul>
     </div>
 
 </main>
-
+<link rel="stylesheet" href="./css/style.css">
 <script src="../node_modules/leancloud-storage/dist/av-min.js"></script>
 <script src="./js/initializers/av.js"></script>
 <script src="../node_modules/jquery/dist/jquery.min.js"></script>
-<script src="//at.alicdn.com/t/font_762983_kin2oqg4ywm.js"></script>
-<script src="./js/admin/event-hub.js"></script>
+<script src="//at.alicdn.com/t/font_768472_n79nmdjijc.js"></script>
+<script src="js/index/event-hub.js"></script>
+<script src="js/index/tab.js"></script>
+<script src="js/index/page-1.js"></script>
+<script src="js/index/page-3.js"></script>
+<script src="js/index/page-2.js"></script>
 
-<script>
-    !function topBarEvents (){
-        $('header > .navBar > li').eq(0).addClass('active')
-        $('header > .navBar > li').on('touchstart',function(e){
-            let index = $(e.currentTarget).index()
-            $('header > .navBar > li').removeClass('active')
-            $('header > .navBar > li').eq(`${index}`).addClass('active')
-            $('main > div').removeClass('active')
-            $('main > div').eq(`${index}`).addClass('active')
 
-        })
-    }.call()
-
-</script>
 </body>
 </html>

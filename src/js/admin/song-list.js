@@ -37,7 +37,7 @@
          this.data.songs = songs.map((song)=>{
           return {id:song.id,...song.attributes}
          })
-         
+
          return songs
         });
     },
