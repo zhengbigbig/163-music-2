@@ -1,30 +1,50 @@
 {
-    let view = {
-        el:'#songList',
-        init(){
+    let view;
+    view = {
+        el: '#songList',
+        init() {
             this.$el = $(this.el)
         },
-        template:`<li>
+        template:`
+             <li>
                 <div>
-                <p>__name__</p>
+                <p>{{name1}}<span>{{name2}}</span></p>
                 <p>
                     <svg class="icon" aria-hidden="true">
                         <use xlink:href="#icon-sq"></use>
                     </svg>
-                __singer__</p>
+                {{singer}}</p>
                 </div>
-                <a href="__url__">
+                <a href="./song.html?id={{id}}">
                     <svg class="icon" aria-hidden="true">
                     <use xlink:href="#icon-bofang"></use>
                     </svg>
                 </a>
-            </li>`,
-        render(data){
-            {name,singer,url} = data
-            this.$el.html(this.template.replace('__url__',data.url))
+             </li>
+            `,
+        render(data) {
+            let {songs} = data
+            songs.map((song)=>{
+            let names = song.name.split('(')
+            let name1 = names[0]
+            let name2 = names[1]
+                if(name2 === undefined){
+                    name2 = ''
+                }else{
+                    name2 = '('+ names[1]
+                }
+            let $li = $(this.template
+                .replace('{{name1}}',name1)
+                .replace('{{name2}}',name2)
+                .replace('{{singer}}',song.singer)
+                .replace('{{id}}',song.id)
+            )
+            this.$el.append($li)
+            })
+
         }
 
-    }
+    };
     let model = {
         data:{
             songs: []
@@ -33,10 +53,11 @@
             var query = new AV.Query('Song');
             return query.find().then((songs)=> {
                 this.data.songs = songs.map((song)=>{
-                    return {id:song.id,...song.attributes}
+                    return Object.assign({id:song.id},song.attributes)
                 })
                 return songs
             });
+
         }
     }
     let controller = {
@@ -45,13 +66,12 @@
             this.model = model
             this.view.init()
             this.bindEvents()
-            this.model.find().then((songs)=>{
-                console.log(this.model.data)
-                this.view.render(songs)
+            this.model.find().then(()=>{
+                this.view.render(this.model.data)
             })
+
         },
         bindEvents(){
-
         }
     }
     controller.init(view,model)

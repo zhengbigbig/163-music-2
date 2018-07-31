@@ -77,8 +77,6 @@
       });
     },
     updata(data){
-        console.log(1121212)
-        console.log(data)
         var song = AV.Object.createWithoutData('Song',this.data.id);
         // 修改属性
         song.set('name', data.name);
