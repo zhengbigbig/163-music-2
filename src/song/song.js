@@ -1,34 +1,20 @@
 {
     let view = {
-        el:'#app',
-        template:`
-        <audio src="{{url}}" controls></audio>
-        <div>
-                <button id="play">播放</button>
-                <button id="pause">暂停</button>
-        </div>
-        `,
+        el:'#container',
         init(){
             this.$el = $(this.el)
-        },
-        render(data){
-            this.$el.html(this.template.replace('{{url}}',data.url))
-        },
-        play(){
-            let audio = this.$el.find('audio')[0]
-            audio.play()
-        },
-        pause(){
-            let audio = this.$el.find('audio')[0]
-            audio.pause()
         }
     }
     let model = {
         data:{
-            name:'',
-            singer:'',
-            url:'',
-            id:''
+            song:{
+                name:'',
+                singer:'',
+                url:'',
+                id:'',
+                cover:'',
+                lyrics:''
+            }
         },
         setId(id){
             this.data.id = id
@@ -50,6 +36,8 @@
             this.model.setId(id)
             this.model.get().then((song)=>{
                 this.view.render(this.model.data)
+                console.log(song)
+                this.view.play()
             })
             this.bindEvents()
         },
@@ -72,13 +60,11 @@
             return id
         },
         bindEvents(){
-            this.view.$el.on('touchstart','#play',()=>{
-                this.view.play()
-            })
-            this.view.$el.on('touchstart','#pause',()=>{
-                this.view.pause()
-            })
+            this.view.$el.delegate('.container::before').css('background-url',this.model.data.song.cover)
+            this.view.$el.on('touchstart',()=>{
+                if(this.view.$el.delegate())
 
+            })
         }
     }
     controller.init(view,model)

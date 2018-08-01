@@ -8,10 +8,49 @@
     <title>Document</title>
 </head>
 <body>
-<div id="app"></div>
+<div class="container" id="container">
+    <header>
+        <div class="logo"></div>
+        <div class="cd-wrapper active">
+            <div class="cd-inner"></div>
+
+        </div>
+        <div class="cd"></div>
+        <div class="lyrics">
+            <span class="name">{{name}}</span>
+            <div class="lyric">
+                <p>{{lyrics}}</p>
+                <p>{{lyrics}}</p>
+                <p>{{lyrics}}</p>
+                <p>{{lyrics}}</p>
+                <p>{{lyrics}}</p>
+                <p>{{lyrics}}</p>
+                <p>{{lyrics}}</p>
+            </div>
+        </div>
+        <div class="giude">
+            <div class="giude-inner"></div>
+        </div>
+    </header>
+    <!--<main>-->
+        <!--<p>精彩评论</p>-->
+        <!--<input type="text" placeholder="火速留名">-->
+        <!--<input type="text" placeholder="请留言..">-->
+    <!--</main>-->
+</div>
+<footer>
+    <span class="open">打开</span>
+    <span class="download">下载</span>
+</footer>
+<script>
+    let pageWidth = window.innerWidth
+    document.write('<style>html{font-size:'+pageWidth/10+'px;}</style>')
+    console.log(pageWidth)
+</script>
+<link rel="stylesheet" href="./css/song.css">
 <script src="../node_modules/leancloud-storage/dist/av-min.js"></script>
 <script src="./js/initializers/av.js"></script>
 <script src="../node_modules/jquery/dist/jquery.min.js"></script>
-<script src="song/song.js"></script>
+<!--<script src="song/song.js"></script>-->
 </body>
 </html>

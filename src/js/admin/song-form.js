@@ -39,7 +39,7 @@
       </form>
     `,
     render(data = {}){
-      let placeholders = ['name', 'url','singer','id']
+      let placeholders = ['name', 'url','singer','id','cover','lyrics']
       let html = this.template
       placeholders.map((string)=>{
         html = html.replace(`__${string}__`, data[string] || '')
@@ -57,7 +57,7 @@
   }
   let model = {
     data:{
-      name:'',singer:'',url:'',id:''
+      name:'',singer:'',url:'',id:'','cover':'','lyrics':''
     },
     create(data){
         // 声明类型
@@ -69,6 +69,8 @@
       // 设置优先级
       song.set('singer',data.singer);
       song.set('url',data.url);
+      song.set('cover',data.cover);
+      song.set('lyrics',data.lyrics);
       return song.save().then((newSong)=>{
         let {id,attributes} = newSong
         Object.assign(this.data,{id,...attributes})
@@ -82,6 +84,8 @@
         song.set('name', data.name);
         song.set('singer',data.singer);
         song.set('url',data.url);
+        song.set('cover',data.cover);
+        song.set('lyrics',data.lyrics);
         // 保存到云端
         return song.save().then((response)=>{
           Object.assign(this.data,data)
@@ -111,7 +115,7 @@
       })
     },
     create(){
-        let needs = 'name singer url'.split(' ')
+        let needs = 'name singer url cover lyrics'.split(' ')
         let data = {}
         needs.map((string)=>{
             data[string] = $(this.view.el).find(`[name="${string}"]`).val()
@@ -124,7 +128,7 @@
         })
     },
     updata(){
-        let needs = 'name singer url'.split(' ')
+        let needs = 'name singer url cover lyrics'.split(' ')
         let data = {}
         needs.map((string)=>{
             data[string] = $(this.view.el).find(`[name="${string}"]`).val()
