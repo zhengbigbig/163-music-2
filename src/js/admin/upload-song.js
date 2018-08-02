@@ -92,7 +92,7 @@
             // 'Key': function(up, file) {
             //     // 若想在前端对每个文件的key进行个性化处理，可以配置该函数
             //     // 该配置必须要在 unique_names: false , save_key: false 时才生效
-    
+            //
             //     var key = "aaa";
             //     // do something with key here
             //     return key

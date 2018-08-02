@@ -3,6 +3,52 @@
         el:'#container',
         init(){
             this.$el = $(this.el)
+        },
+        render(data){
+            $(`<style>.container::before,header .cd-wrapper .cd-inner {background-image:url('${data.song.cover}')}</style>`).appendTo('body')
+            this.$el.find('header .cd-wrapper .cd-inner').css('background-image',data.song.cover)
+            let namepre = data.song.name.split('(')
+            name = namepre[0] + '-'
+            namelast = namepre[1].split(')')
+            nameinner =namelast[0]
+            this.$el.find('header .lyrics .name').text(name)
+            this.$el.find('header .lyrics .nameinner').text(nameinner)
+            let audio = this.$el.find('audio')
+            audio.attr('src',data.song.url)
+            audio[0].onended = (()=>{
+                this.pause()
+                window.eventHub.emit('songEnd')
+                console.log('end')
+            })
+            let {lyrics} = data.song
+            lyrics.split('\n').map((string)=>{
+                console.log(string)
+                let p = document.createElement('p')
+                let regex = /\[([\d:.]+)\](.+)/
+                let matches = string.match(regex)
+                if(matches){
+                    p.textContent = matches[2]
+                    p.setAttribute('data-time',matches[1])
+                }else{
+                    if(string[0] === '['){
+                        p.textContent = ''
+                    }else{
+                        p.textContent = string
+                    }
+                }
+                this.$el.find('header .lyrics .lyric').append(p)
+            })
+
+        },
+        play(){
+            this.$el.find('audio')[0].play()
+            this.$el.find('header .cd-wrapper').addClass('active')
+            this.$el.find('header .cd').removeClass('deactive')
+        },
+        pause(){
+            this.$el.find('audio')[0].pause()
+            this.$el.find('header .cd-wrapper').removeClass('active')
+            this.$el.find('header .cd').addClass('deactive')
         }
     }
     let model = {
@@ -14,7 +60,8 @@
                 id:'',
                 cover:'',
                 lyrics:''
-            }
+            },
+            status:'playing',
         },
         setId(id){
             this.data.id = id
@@ -22,7 +69,7 @@
         get(){
             var query = new AV.Query('Song');
             return query.get(this.data.id).then((song)=>{
-                Object.assign(this.data,song.attributes)
+                Object.assign(this.data.song,song.attributes)
                 return song
             })
         }
@@ -36,7 +83,6 @@
             this.model.setId(id)
             this.model.get().then((song)=>{
                 this.view.render(this.model.data)
-                console.log(song)
                 this.view.play()
             })
             this.bindEvents()
@@ -60,10 +106,18 @@
             return id
         },
         bindEvents(){
-            this.view.$el.delegate('.container::before').css('background-url',this.model.data.song.cover)
-            this.view.$el.on('touchstart',()=>{
-                if(this.view.$el.delegate())
-
+            this.view.$el.on('touchstart','header',()=>{
+                if(this.model.data.status === 'playing'){
+                    this.view.pause()
+                    this.model.data.status = 'paused'
+                }else{
+                    this.view.play()
+                    this.model.data.status = 'playing'
+                }
+            })
+            window.eventHub.on('songEnd',()=>{
+                this.model.data.status = 'paused'
+                this.view.render(this.model.data)
             })
         }
     }

@@ -9,23 +9,21 @@
 </head>
 <body>
 <div class="container" id="container">
+    <audio src="#"></audio>
     <header>
         <div class="logo"></div>
         <div class="cd-wrapper active">
             <div class="cd-inner"></div>
-
         </div>
         <div class="cd"></div>
         <div class="lyrics">
-            <span class="name">{{name}}</span>
+            <div class="title">
+                 <span class="name">
+                 </span>
+                 <span class="nameinner">
+                 </span>
+            </div>
             <div class="lyric">
-                <p>{{lyrics}}</p>
-                <p>{{lyrics}}</p>
-                <p>{{lyrics}}</p>
-                <p>{{lyrics}}</p>
-                <p>{{lyrics}}</p>
-                <p>{{lyrics}}</p>
-                <p>{{lyrics}}</p>
             </div>
         </div>
         <div class="giude">
@@ -48,9 +46,10 @@
     console.log(pageWidth)
 </script>
 <link rel="stylesheet" href="./css/song.css">
+<script src="../node_modules/jquery/dist/jquery.min.js"></script>
 <script src="../node_modules/leancloud-storage/dist/av-min.js"></script>
 <script src="./js/initializers/av.js"></script>
-<script src="../node_modules/jquery/dist/jquery.min.js"></script>
-<!--<script src="song/song.js"></script>-->
+<script src="./js/admin/event-hub.js"></script>
+<script src="song/song.js"></script>
 </body>
 </html>
