@@ -6,29 +6,34 @@
         },
         render(data){
             $(`<style>.container::before,header .cd-wrapper .cd-inner {background-image:url('${data.song.cover}')}</style>`).appendTo('body')
-            this.$el.find('header .cd-wrapper .cd-inner').css('background-image',data.song.cover)
+                //添加标题信息
             let namepre = data.song.name.split('(')
             name = namepre[0] + '-'
             namelast = namepre[1].split(')')
             nameinner =namelast[0]
             this.$el.find('header .lyrics .name').text(name)
             this.$el.find('header .lyrics .nameinner').text(nameinner)
-            let audio = this.$el.find('audio')
-            audio.attr('src',data.song.url)
-            audio[0].onended = (()=>{
+            //控制audio变化
+            let audio = this.$el.find('audio').attr('src',data.song.url).get(0)
+            audio.onended = (()=>{
                 this.pause()
                 window.eventHub.emit('songEnd')
                 console.log('end')
             })
+            audio.ontimeupdate = (()=>{
+                this.timeUp(audio.currentTime)
+            })
+            //获取歌曲信息展现在列表中
             let {lyrics} = data.song
             lyrics.split('\n').map((string)=>{
-                console.log(string)
                 let p = document.createElement('p')
                 let regex = /\[([\d:.]+)\](.+)/
                 let matches = string.match(regex)
                 if(matches){
+                    let pretime = matches[1].split(':')
+                    let time = parseInt(pretime[0])*60 + parseFloat(pretime[1])
                     p.textContent = matches[2]
-                    p.setAttribute('data-time',matches[1])
+                    p.setAttribute('data-time',time)
                 }else{
                     if(string[0] === '['){
                         p.textContent = ''
@@ -36,7 +41,7 @@
                         p.textContent = string
                     }
                 }
-                this.$el.find('header .lyrics .lyric').append(p)
+                this.$el.find('header .lyrics .lyric .lines').append(p)
             })
 
         },
@@ -49,6 +54,23 @@
             this.$el.find('audio')[0].pause()
             this.$el.find('header .cd-wrapper').removeClass('active')
             this.$el.find('header .cd').addClass('deactive')
+        },
+        timeUp(time){
+            let pTags = $('header .lyrics .lyric p')
+            for(let i=0;i<pTags.length;i++){
+                if(i === pTags.length-1){
+                    break;
+                }else{
+                    let currentTime = pTags.eq(i).attr('data-time')
+                    let nextTime = pTags.eq(i+1).attr('data-time')
+                    if(time>currentTime & time<nextTime){
+                        pTags.eq(i).css('color','#fefefe')
+                        let contact = pTags[i].getBoundingClientRect().top - this.$el.find('header .lyrics .lyric .lines')[0].getBoundingClientRect().top
+                        console.log(contact)
+                        this.$el.find('header .lyrics .lyric .lines').css('transform',`translateY(${- contact}px)`)
+                    }
+                }
+            }
         }
     }
     let model = {
@@ -106,7 +128,7 @@
             return id
         },
         bindEvents(){
-            this.view.$el.on('touchstart','header',()=>{
+            this.view.$el.on('touchstart','header .cd',()=>{
                 if(this.model.data.status === 'playing'){
                     this.view.pause()
                     this.model.data.status = 'paused'
