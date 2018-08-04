@@ -25,6 +25,11 @@
                window.eventHub.emit('tabSwitch',index)
 
            })
+            window.eventHub.on('lookAll',()=>{
+                this.view.$el.find('.navBar > li').eq(0).addClass('active')
+                    .siblings().removeClass('active')
+                window.eventHub.emit('tabSwitch',0)
+            })
         }
 
     }

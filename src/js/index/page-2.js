@@ -23,12 +23,16 @@
         },
         bindEvents(){
             window.eventHub.on('tabSwitch',(index)=>{
-
                 if(index === 1){
                     this.view.active()
                 }else{
                     this.view.deactive()
                 }
+            })
+            this.view.$el.on('touchstart','.moreMessage',(e)=>{
+                e.preventDefault()
+                console.log('阻止事件')
+                window.eventHub.emit('lookAll')
             })
         }
     }

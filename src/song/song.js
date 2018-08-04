@@ -18,7 +18,6 @@
             audio.onended = (()=>{
                 this.pause()
                 window.eventHub.emit('songEnd')
-                console.log('end')
             })
             audio.ontimeupdate = (()=>{
                 this.timeUp(audio.currentTime)
@@ -47,7 +46,7 @@
         },
         play(){
             this.$el.find('audio')[0].play()
-            this.$el.find('header .cd-wrapper').addClass('active')
+            this.$el.find('header .cd-wrapper').addClass('rotate active')
             this.$el.find('header .cd').removeClass('deactive')
         },
         pause(){
@@ -140,6 +139,8 @@
             window.eventHub.on('songEnd',()=>{
                 this.model.data.status = 'paused'
                 this.view.render(this.model.data)
+                this.view.$el.find('header .lyrics .lyric .lines').css('transform','translateY(0)')
+                this.view.$el.find('header .cd-wrapper').removeClass('rotate')
             })
         }
     }

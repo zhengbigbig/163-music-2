@@ -106,11 +106,16 @@
         this.model.data.id = data.id
       })
       window.eventHub.on('new',(data)=>{
-        if(this.model.data.id){ //这个data的id是从leancloud里面取的，如果存在，说明用户正在编辑
-          this.model.data = {} //则清空
+        if(!this.model.data.id){ //这个data的id是从leancloud里面取的，如果存在，说明用户正在编辑
+            console.log(data)
+            this.model.data = JSON.parse(JSON.stringify(data))
+
+
         }else{
-          Object.assign(this.model.data,data)
+            console.log(this.model.data.id)
+            this.model.data = {} //则清空
         }
+        console.log(this.model.data)
         this.view.render(this.model.data)
       })
     },
