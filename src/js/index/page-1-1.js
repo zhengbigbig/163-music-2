@@ -15,7 +15,7 @@
     }
     let model = {
         data: {
-            id: '5b649d3767f35600356d5cc7',
+            id: '5b65485dfe88c2005ad12579',
             number:{}
         },
         get(){
@@ -54,9 +54,7 @@
             this.view.$el.on('touchstart','li',(e)=>{
                 let index = $(e.currentTarget).index()
                 let num = this.model.data.number[index] -0
-                console.log(num)
                 num +=1
-                console.log(num)
                 this.model.data.number[index] = num +""
                 let value = this.model.data.number[index]
                 Object.assign(this.model.data.number,{index:value})
