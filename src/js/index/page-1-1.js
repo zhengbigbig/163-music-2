@@ -51,7 +51,7 @@
 
         },
         bindEvents(){
-            this.view.$el.on('click','li',(e)=>{
+            this.view.$el.on('touchstart','li',(e)=>{
                 let index = $(e.currentTarget).index()
                 let num = this.model.data.number[index] -0
                 console.log(num)

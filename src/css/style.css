@@ -396,7 +396,7 @@ main .searchSong .searchBar input[type="search"]{
     margin-left:0.25rem;
     -webkit-appearance: meter;
     background:#EBECEC;
-    border: 1px solid red;
+    border: 1px solid transparent;
     overflow: hidden;
 }
 main .searchSong .searchBar input[type="search"]:focus{
