@@ -305,6 +305,16 @@
         alert('功能未开放，敬请期待！')
     })
 </script>
-
+<script src="../node_modules/vconsole/dist/vconsole.min.js"></script>
+<script>
+// 初始化
+var vConsole = new VConsole();
+window.onerror = function (message, file, row) {
+console.log(message)
+console.log(file)
+console.log(row)
+}
+</script>
+</script>
 </body>
 </html>
